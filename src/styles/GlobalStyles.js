@@ -27,7 +27,7 @@ const GlobalStyle = createGlobalStyle`
         display: block;
     }
     body { 
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Lexend Deca', sans-serif;
     }
     ol, ul {
         list-style: none;
@@ -46,6 +46,7 @@ const GlobalStyle = createGlobalStyle`
     }
     *{
         box-sizing: border-box;
+        font-family: 'Lexend Deca', sans-serif;
     }
 `;
 
