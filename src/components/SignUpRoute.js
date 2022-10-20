@@ -6,19 +6,23 @@ export default function LoginRoute() {
     return (
         <StyledContainer>
             <StyledLogo src={logo} />
-            <StyledInput type="email" placeholder="email"></StyledInput>
+            <StyledInput type="text" placeholder="email"></StyledInput>
 
-            <StyledInput type="password" placeholder="senha"></StyledInput>
+            <StyledInput type="text" placeholder="senha"></StyledInput>
+
+            <StyledInput type="text" placeholder="nome"></StyledInput>
+
+            <StyledInput type="text" placeholder="foto"></StyledInput>
 
             <StyledButton>
                 <h1>
-                    Entrar
+                    Cadastrar
                 </h1>
             </StyledButton>
 
-            <Link to="/cadastro">
+            <Link to="/">
                 <StyledH1>
-                    Não tem uma conta? Cadastre-se!
+                    Já tem uma conta? Faça login!
                 </StyledH1>
             </Link>
         </StyledContainer>
