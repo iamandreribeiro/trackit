@@ -6,7 +6,7 @@ function AuthProvider({children}) {
     const [image, setImage] = useState("");
     const [token, setToken] = useState("");
     return (
-        <AuthContext.Provider value={{image: image, setImage: setImage,
+        <AuthContext.Provider value={{nome: "André", image: image, setImage: setImage,
             token: token, setToken: setToken}}>
             {children}
         </AuthContext.Provider>

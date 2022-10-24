@@ -33,7 +33,7 @@ export default function HabitsRoute() {
             console.log(d.data);
             setHabitos(d.data);
         });
-    }, [])
+    }, [URL])
 
     function criarHabito() {
         setBoolean(true);
@@ -46,14 +46,17 @@ export default function HabitsRoute() {
     }
 
     function salvarHabito() {
-        const dados = {name: nomeHabito, days: diasHabito}
+        const dados = { name: nomeHabito, days: diasHabito }
         console.log(dados);
         const promise = axios.post(URL, dados, {
             headers: {
                 authorization: `Bearer ${token}`
             }
         });
-        promise.then((d) => console.log(d.data));
+        promise.then((d) => {
+            console.log(d.data)
+            setBoolean(false);
+        });
     }
 
     return (
@@ -145,19 +148,21 @@ export default function HabitsRoute() {
             <StyledFooter>
                 <h1>Hábitos</h1>
                 <div style={{ width: 80, height: 80, marginBottom: 30 }}>
-                    <CircularProgressbar
-                        value={73}
-                        text={'Hoje'}
-                        background={true}
-                        backgroundPadding={8}
-                        styles={buildStyles({
-                            textSize: '20px',
-                            pathColor: '#FFFFFF',
-                            textColor: '#FFFFFF',
-                            trailColor: '#52B6FF',
-                            backgroundColor: '#52B6FF',
-                        })}
-                    />
+                    <Link to="/hoje">
+                        <CircularProgressbar
+                            value={73}
+                            text={'Hoje'}
+                            background={true}
+                            backgroundPadding={8}
+                            styles={buildStyles({
+                                textSize: '20px',
+                                pathColor: '#FFFFFF',
+                                textColor: '#FFFFFF',
+                                trailColor: '#52B6FF',
+                                backgroundColor: '#52B6FF',
+                            })}
+                        />
+                    </Link>
                 </div>
                 <h1>Histórico</h1>
             </StyledFooter>

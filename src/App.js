@@ -4,6 +4,8 @@ import AuthProvider from "./context/auth";
 import LoginRoute from "./components/LoginRoute";
 import SignUpRoute from "./components/SignUpRoute";
 import HabitsRoute from "./components/HabitsRoute";
+import TodayRoute from "./components/TodayRoute";
+
 
 export default function App() {
     return (
@@ -24,6 +26,11 @@ export default function App() {
                     <Route 
                         path="/habitos"
                         element={<HabitsRoute />}
+                    />
+
+                    <Route 
+                        path="/hoje"
+                        element={<TodayRoute />}
                     />
                 </Routes>
             </AuthProvider>
