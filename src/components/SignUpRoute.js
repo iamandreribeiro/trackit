@@ -15,8 +15,6 @@ export default function LoginRoute() {
 
     function cadastro() {
         const dados = {email: email, name: nome, image: foto, password: senha};
-        console.log(email, nome, foto, senha);
-        console.log(dados);
         const promise = axios.post(URL, dados);
         promise.then((d) => {
             console.log(d.data)

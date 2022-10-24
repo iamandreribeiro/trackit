@@ -11,6 +11,7 @@ import axios from "axios";
 const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today";
 
 let color = "";
+let contador = 0;
 
 export default function TodayRoute() {
     const { image } = useContext(AuthContext);
@@ -19,6 +20,7 @@ export default function TodayRoute() {
 
     const [dia, setDia] = useState("");
     const [habitos, setHabitos] = useState([]);
+    const [porcentagem, setPorcentagem] = useState(0);
 
     useEffect(() => {
         if (dayjs().day() === 0) setDia("Domingo");
@@ -38,22 +40,26 @@ export default function TodayRoute() {
         })
 
         promise.then((d) => {
-            console.log(d.data);
             setHabitos(d.data);
-            console.log(habitos);
+            habitos.map((h) => {
+                if(h.done) contador++;
+                setPorcentagem(contador * 100 / parseInt(habitos.length));
+            })
         });
     }, []);
 
     function validaHabito(id) {
-        console.log(id);
         const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/` + id + `/check`, undefined, {
             headers: {
                 authorization: `Bearer ${token}`
             }
         });
 
-        promise.then((d) => console.log(d));
+        promise.then((d) => {
+            console.log(d);
+        });
     }
+
 
     return (
         <StyledContainer>
@@ -66,18 +72,19 @@ export default function TodayRoute() {
 
             <StyledHabits>
                 <h1>{dia}, {dayjs().format('DD/MM')}</h1>
-                {
-                }
             </StyledHabits>
+
+            <StyledConcluidos>
+                <h1>{porcentagem}% dos hábitos concluídos</h1>
+            </StyledConcluidos>
 
             {
                 habitos.map((h) => {
-                    console.log(h.done);  
-                    if(h.done) {
+                    if (h.done) {
                         color = "#8FC549";
                     } else {
                         color = "#E7E7E7";
-                    }   
+                    }
                     return (
                         <StyledHabit>
                             <StyledDays color={color}>
@@ -168,10 +175,21 @@ const StyledHabits = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 20px 0;
+    margin-top: 20px;
     h1 {
         color: #126BA5;
         font-size: 23px;
+    }
+`
+
+const StyledConcluidos = styled.div`
+    width: 80vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px 0;
+    h1 {
+        font-size: 13px;
     }
 `
 
@@ -198,6 +216,7 @@ const StyledDays = styled.div`
     }
     h2 {
         font-size: 13px;
+        color: ${props => props.color};
     }
     ion-icon {
         color: ${props => props.color};

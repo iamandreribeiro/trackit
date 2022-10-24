@@ -30,7 +30,6 @@ export default function HabitsRoute() {
         })
 
         promise.then((d) => {
-            console.log(d.data);
             setHabitos(d.data);
         });
     }, [URL])
@@ -42,19 +41,16 @@ export default function HabitsRoute() {
     function salvaDias(i) {
         const day = [...diasHabito, i];
         setDiasHabito(day);
-        console.log(diasHabito);
     }
 
     function salvarHabito() {
         const dados = { name: nomeHabito, days: diasHabito }
-        console.log(dados);
         const promise = axios.post(URL, dados, {
             headers: {
                 authorization: `Bearer ${token}`
             }
         });
         promise.then((d) => {
-            console.log(d.data)
             setBoolean(false);
         });
     }
@@ -82,7 +78,6 @@ export default function HabitsRoute() {
 
             {
                 habitos.length !== 0 ? habitos.map((h) => {
-                    console.log(h.days);
                     return (
                         <StyledHabit>
                             <StyledTitle>{h.name}</StyledTitle>
