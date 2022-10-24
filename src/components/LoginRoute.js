@@ -1,21 +1,34 @@
+import axios from "axios";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components"
 import logo from "../assets/logo.png";
 
+const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
+
 export default function LoginRoute() {
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+
+    function login() {
+        const dados = {email: email, password: senha};
+        console.log(email, senha);
+        console.log(dados);
+        const promise = axios.post(URL, dados);
+        promise.then((d) => console.log(d.data));
+        promise.catch(alert("Deu ruim!"));
+    }
+
     return (
         <StyledContainer>
-            <StyledLogo src={logo} />
-            <StyledInput type="email" placeholder="email"></StyledInput>
-
-            <StyledInput type="password" placeholder="senha"></StyledInput>
-
-            <StyledButton>
+            <StyledLogo src={logo} />            
+            <StyledInput type="email" placeholder="email" onChange={(c) => setEmail(c.target.value)} />
+            <StyledInput type="password" placeholder="senha" onChange={(c) => setSenha(c.target.value)}/>
+            <StyledButton onClick={() => login()}>
                 <h1>
                     Entrar
                 </h1>
             </StyledButton>
-
             <Link to="/cadastro">
                 <StyledH1>
                     Não tem uma conta? Cadastre-se!
