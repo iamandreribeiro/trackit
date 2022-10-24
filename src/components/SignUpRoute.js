@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components"
 import logo from "../assets/logo.png";
+import { AuthContext } from "../context/auth";
 
 const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
 
@@ -17,7 +18,9 @@ export default function LoginRoute() {
         console.log(email, nome, foto, senha);
         console.log(dados);
         const promise = axios.post(URL, dados);
-        promise.then((d) => console.log(d.data));
+        promise.then((d) => {
+            console.log(d.data)
+        });
     }
 
     return (

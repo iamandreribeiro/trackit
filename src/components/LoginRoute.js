@@ -1,12 +1,18 @@
 import axios from "axios";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components"
 import logo from "../assets/logo.png";
+import { AuthContext } from "../context/auth";
 
 const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
 
 export default function LoginRoute() {
+    const navigate = useNavigate();
+    
+    const {setImage} = useContext(AuthContext);
+    const {setToken} = useContext(AuthContext);
+
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
@@ -15,7 +21,14 @@ export default function LoginRoute() {
         console.log(email, senha);
         console.log(dados);
         const promise = axios.post(URL, dados);
-        promise.then((d) => console.log(d.data));
+        promise.then((d) => {
+            console.log(d.data);
+            console.log(d.data.image);
+            setImage(d.data.image);
+            setToken(d.data.token);
+            navigate("/habitos");
+        });
+
         promise.catch(alert("Deu ruim!"));
     }
 
