@@ -1,20 +1,37 @@
+import axios from "axios";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components"
 import logo from "../assets/logo.png";
 
+const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
+
 export default function LoginRoute() {
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [nome, setNome] = useState("");
+    const [foto, setFoto] = useState("");
+
+    function cadastro() {
+        const dados = {email: email, name: nome, image: foto, password: senha};
+        console.log(email, nome, foto, senha);
+        console.log(dados);
+        const promise = axios.post(URL, dados);
+        promise.then((d) => console.log(d.data));
+    }
+
     return (
         <StyledContainer>
             <StyledLogo src={logo} />
-            <StyledInput type="text" placeholder="email"></StyledInput>
+            <StyledInput type="text" placeholder="email" onChange={(c) => setEmail(c.target.value)} />
 
-            <StyledInput type="text" placeholder="senha"></StyledInput>
+            <StyledInput type="text" placeholder="senha" onChange={(c) => setSenha(c.target.value)} />
 
-            <StyledInput type="text" placeholder="nome"></StyledInput>
+            <StyledInput type="text" placeholder="nome" onChange={(c) => setNome(c.target.value)} />
 
-            <StyledInput type="text" placeholder="foto"></StyledInput>
+            <StyledInput type="text" placeholder="foto" onChange={(c) => setFoto(c.target.value)} />
 
-            <StyledButton>
+            <StyledButton onClick={() => cadastro()}>
                 <h1>
                     Cadastrar
                 </h1>
